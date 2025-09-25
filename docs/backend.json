@@ -80,7 +80,7 @@
       },
       "description": "Stores user profiles. Only the authenticated user can access their own profile."
     },
-    "/enrollments/{enrollmentId}": {
+    "/nb1-users/{userId}": {
       "schema": {
         "$ref": "#/backend/entities/Enrollment"
       },

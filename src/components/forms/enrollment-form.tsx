@@ -41,7 +41,7 @@ export function EnrollmentForm({ userId }: { userId: string }) {
     startTransition(() => {
         if (!firestore) return;
 
-        const enrollmentsRef = collection(firestore, 'enrollments');
+        const enrollmentsRef = collection(firestore, 'nb1-users');
         
         addDocumentNonBlocking(enrollmentsRef, {
             ...values,

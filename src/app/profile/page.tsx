@@ -78,7 +78,7 @@ export default function ProfilePage() {
     const enrollmentsQuery = useMemoFirebase(() => {
         if (!firestore || !user) return null;
         return query(
-            collection(firestore, 'enrollments'),
+            collection(firestore, 'nb1-users'),
             where('userId', '==', user.uid),
             limit(1)
         );
