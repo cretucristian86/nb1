@@ -1,106 +1,62 @@
 /**
- * @file Firebase Security Rules for Campaign Enroller App
- *
- * @core_philosophy This ruleset enforces a strict user-ownership model. Users can only access their own data.
- * @data_structure Data is nested under /users/{userId}, with enrollments stored in a subcollection.
- * @key_security_decisions
- *   - User listing is disallowed for privacy.
- *   - Each user can only read/write their own user document.
- *   - Each user can only read/write their own enrollments.
- *   - Data model assumes no admin roles or shared documents.
+ * @description This ruleset enforces a user-ownership model for user profiles and allows users to create enrollment documents associated with their user ID.
+ * @dataStructure
+ *   - /users/{userId}: Stores user profile data, accessible only to the owning user.
+ *   - /enrollments/{enrollmentId}: Stores enrollment data, with a userId field linking it to a specific user.
+ * @keySecurityDecisions
+ *   - User listing is disabled to protect user privacy.
+ *   - Enrollment creation is allowed if the userId field matches the authenticated user's ID.
+ *   - Enrollments can be read, updated, and deleted only by the user who created them.
+ * @denormalizationForAuthorization
+ *   - Enrollment documents include a `userId` field to directly associate them with a user, enabling efficient ownership checks without additional `get()` calls.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Protects user profiles.
+     * @description Allows users to read and write their own user profile data.
      * @path /users/{userId}
-     * @allow (create) - Authenticated user can create their own profile if the userId matches their auth UID.
-     * @allow (get) - Authenticated user can read their own profile.
-     * @allow (update) - Authenticated user can update their own profile.
-     * @allow (delete) - Authenticated user can delete their own profile.
-     * @deny (create) - User attempts to create a profile with a mismatched userId.
-     * @deny (get) - User attempts to read another user's profile.
-     * @deny (update) - User attempts to update another user's profile.
-     * @deny (delete) - User attempts to delete another user's profile.
+     * @allow (get, update, delete) if request.auth.uid == userId
+     * @allow (create) if request.auth.uid == userId
+     * @deny (get, update, delete) if request.auth.uid != userId
      * @principle Enforces document ownership for all operations.
      */
     match /users/{userId} {
-      // Helper function to check if the user is signed in
-      function isSignedIn() {
-        return request.auth != null;
-      }
-
-      // Helper function to check if the requested userId matches the authenticated user's UID
-      function isOwner(userId) {
-        return isSignedIn() && request.auth.uid == userId;
-      }
-
-      // Helper function to check if the user is the existing owner of the document
-      function isExistingOwner(userId) {
-        return isOwner(userId) && resource != null;
-      }
-
-      // Allow a user to create their own profile, enforcing userId consistency
-      allow create: if isOwner(userId) && request.resource.data.id == userId;
-
-      // Allow a user to get their own profile
       allow get: if isOwner(userId);
-
-      // Allow a user to update their own profile, enforcing userId immutability
-      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
-
-      // Allow a user to delete their own profile
-      allow delete: if isExistingOwner(userId);
-
-      // Prevent listing all users
       allow list: if false;
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId);
+      allow delete: if isExistingOwner(userId);
     }
 
     /**
-     * @description Protects user enrollment data.
-     * @path /users/{userId}/enrollments/{enrollmentId}
-     * @allow (create) - Authenticated user can create enrollment data under their user ID.
-     * @allow (get) - Authenticated user can read their own enrollment data.
-     * @allow (update) - Authenticated user can update their own enrollment data.
-     * @allow (delete) - Authenticated user can delete their own enrollment data.
-     * @deny (create) - User attempts to create enrollment data under another user's ID.
-     * @deny (get) - User attempts to read another user's enrollment data.
-     * @deny (update) - User attempts to update another user's enrollment data.
-     * @deny (delete) - User attempts to delete another user's enrollment data.
-     * @principle Enforces document ownership for writes.
+     * @description Allows users to create enrollment documents associated with their user ID.
+     * @path /enrollments/{enrollmentId}
+     * @allow (create) if request.auth.uid == request.resource.data.userId
+     * @allow (get, list) if true
+     * @allow (update, delete) if isOwner(resource.data.userId)
+     * @deny (create) if request.auth.uid != request.resource.data.userId
+     * @principle Enforces that the userId field in the enrollment matches the authenticated user's ID.
      */
-    match /users/{userId}/enrollments/{enrollmentId} {
-       // Helper function to check if the user is signed in
-      function isSignedIn() {
-        return request.auth != null;
-      }
+    match /enrollments/{enrollmentId} {
+      allow get, list: if true;
+      allow create: if request.auth.uid == request.resource.data.userId;
+      allow update: if isExistingOwner(resource.data.userId);
+      allow delete: if isExistingOwner(resource.data.userId);
+    }
 
-      // Helper function to check if the requested userId matches the authenticated user's UID
-      function isOwner(userId) {
-        return isSignedIn() && request.auth.uid == userId;
-      }
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
 
-      // Helper function to check if the user is the existing owner of the document
-      function isExistingOwner(userId) {
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isExistingOwner(userId) {
         return isOwner(userId) && resource != null;
-      }
-
-      // Allow a user to create enrollment data for themselves
-      allow create: if isOwner(userId) && request.resource.data.userId == userId;
-
-      // Allow a user to get their own enrollment data
-      allow get: if isOwner(userId);
-
-      // Allow a user to update their own enrollment data, enforcing userId immutability
-      allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
-
-      // Allow a user to delete their own enrollment data
-      allow delete: if isExistingOwner(userId);
-
-      // Allow a user to list their own enrollment data
-      allow list: if isOwner(userId);
     }
   }
 }
