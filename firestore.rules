@@ -1,62 +1,61 @@
 /**
- * @description This ruleset enforces a user-ownership model for user profiles and allows users to create enrollment documents associated with their user ID.
- * @dataStructure
- *   - /users/{userId}: Stores user profile data, accessible only to the owning user.
- *   - /enrollments/{enrollmentId}: Stores enrollment data, with a userId field linking it to a specific user.
- * @keySecurityDecisions
- *   - User listing is disabled to protect user privacy.
- *   - Enrollment creation is allowed if the userId field matches the authenticated user's ID.
- *   - Enrollments can be read, updated, and deleted only by the user who created them.
- * @denormalizationForAuthorization
- *   - Enrollment documents include a `userId` field to directly associate them with a user, enabling efficient ownership checks without additional `get()` calls.
+ * @fileoverview Firestore Security Rules for the application.
+ *
+ * Core Philosophy:
+ * This ruleset enforces a user-ownership model for user profiles and allows each user to create an enrollment document associated with their user ID.
+ *
+ * Data Structure:
+ * - /users/{userId}: Stores user profiles, accessible only to the authenticated user with matching userId.
+ * - /nb1-users/{userId}: Stores enrollment data, with create access restricted to the matching authenticated user and read access for all.
+ *
+ * Key Security Decisions:
+ * - Users can only access their own user profile data.
+ * - User listing is disallowed for privacy.
+ * - Enrollment documents are accessible by any user.
+ *
+ * Denormalization for Authorization:
+ * - The Enrollment documents have a userId field that matches the user's auth UID. This is enforced on create to ensure a secure relationship between a user and their enrollment data.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Allows users to read and write their own user profile data.
+     * @description Enforces that only the authenticated user can read and write their own user profile.
      * @path /users/{userId}
-     * @allow (get, update, delete) if request.auth.uid == userId
-     * @allow (create) if request.auth.uid == userId
-     * @deny (get, update, delete) if request.auth.uid != userId
-     * @principle Enforces document ownership for all operations.
+     * @allow (get, update, delete) User with matching auth UID can access their own profile.
+     * @allow (create) User with matching auth UID can create their own profile.
+     * @deny (get, update, delete) User cannot access another user's profile.
+     * @principle Enforces document ownership for reads and writes.
      */
     match /users/{userId} {
-      allow get: if isOwner(userId);
+      allow get: if isSignedIn() && isOwner(userId);
       allow list: if false;
-      allow create: if isOwner(userId);
-      allow update: if isOwner(userId);
-      allow delete: if isExistingOwner(userId);
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isOwner(userId);
+      allow delete: if isSignedIn() && isOwner(userId);
     }
 
     /**
-     * @description Allows users to create enrollment documents associated with their user ID.
-     * @path /enrollments/{enrollmentId}
-     * @allow (create) if request.auth.uid == request.resource.data.userId
-     * @allow (get, list) if true
-     * @allow (update, delete) if isOwner(resource.data.userId)
-     * @deny (create) if request.auth.uid != request.resource.data.userId
-     * @principle Enforces that the userId field in the enrollment matches the authenticated user's ID.
+     * @description Allows any authenticated user to create an enrollment document that contains their userId.
+     * @path /nb1-users/{userId}
+     * @allow (create) User can create an enrollment document for themselves.
+     * @allow (get, list) Any user can read enrollment documents.
+     * @deny (update, delete) Only owner can update and delete.
+     * @principle Enforces that the userId in the enrollment document matches the authenticated user's ID.
      */
-    match /enrollments/{enrollmentId} {
+    match /nb1-users/{userId} {
       allow get, list: if true;
-      allow create: if request.auth.uid == request.resource.data.userId;
-      allow update: if isExistingOwner(resource.data.userId);
-      allow delete: if isExistingOwner(resource.data.userId);
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if false;
     }
 
-    // Helper functions
     function isSignedIn() {
       return request.auth != null;
     }
 
     function isOwner(userId) {
-      return isSignedIn() && request.auth.uid == userId;
-    }
-
-    function isExistingOwner(userId) {
-        return isOwner(userId) && resource != null;
+      return request.auth.uid == userId;
     }
   }
 }
