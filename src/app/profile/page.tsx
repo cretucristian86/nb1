@@ -1,7 +1,7 @@
 'use client';
 
 import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
-import { collection } from 'firebase/firestore';
+import { collection, query, where, limit } from 'firebase/firestore';
 import { Header } from '@/components/header';
 import { NextSteps } from '@/components/next-steps';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -77,7 +77,11 @@ export default function ProfilePage() {
 
     const enrollmentsQuery = useMemoFirebase(() => {
         if (!firestore || !user) return null;
-        return collection(firestore, 'users', user.uid, 'enrollments');
+        return query(
+            collection(firestore, 'enrollments'),
+            where('userId', '==', user.uid),
+            limit(1)
+        );
     }, [firestore, user]);
 
     const { data: enrollments, isLoading: isEnrollmentsLoading } = useCollection(enrollmentsQuery);

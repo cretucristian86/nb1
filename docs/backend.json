@@ -80,11 +80,11 @@
       },
       "description": "Stores user profiles. Only the authenticated user can access their own profile."
     },
-    "/users/{userId}/enrollments/{enrollmentId}": {
+    "/enrollments/{enrollmentId}": {
       "schema": {
         "$ref": "#/backend/entities/Enrollment"
       },
-      "description": "Stores enrollment data for each user. Only the authenticated user can access their enrollment data."
+      "description": "Stores enrollment data for all users. Each document contains a userId to link back to the user."
     }
   }
 }

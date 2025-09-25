@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useFirestore } from '@/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, serverTimestamp } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 
 import { EnrollmentSchema } from '@/lib/schemas';
@@ -41,7 +41,7 @@ export function EnrollmentForm({ userId }: { userId: string }) {
     startTransition(() => {
         if (!firestore) return;
 
-        const enrollmentsRef = collection(firestore, 'users', userId, 'enrollments');
+        const enrollmentsRef = collection(firestore, 'enrollments');
         
         addDocumentNonBlocking(enrollmentsRef, {
             ...values,
