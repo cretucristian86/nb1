@@ -1,12 +1,13 @@
 'use client';
 
-import { useTransition } from 'react';
+import { useEffect, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { auth } from '@/lib/firebase/config';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useAuth, useUser } from '@/firebase';
+import { initiateEmailSignIn } from '@/firebase/non-blocking-login';
 
 import { LoginSchema } from '@/lib/schemas';
 import { Button } from '@/components/ui/button';
@@ -39,8 +40,16 @@ const GoogleIcon = () => (
 
 export function LoginForm() {
   const router = useRouter();
+  const auth = useAuth();
+  const { user, isUserLoading } = useUser();
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
+
+  useEffect(() => {
+    if (!isUserLoading && user) {
+      router.push('/enroll');
+    }
+  }, [user, isUserLoading, router]);
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -67,23 +76,18 @@ export function LoginForm() {
   };
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    startTransition(async () => {
-      try {
-        await signInWithEmailAndPassword(auth, values.email, values.password);
-        router.push('/enroll');
-      } catch (err: any) {
-        let errorMessage = 'An unexpected error occurred.';
-        if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
-            errorMessage = 'Invalid email or password.';
-        }
-        toast({
-          variant: 'destructive',
-          title: 'Login Failed',
-          description: errorMessage,
-        });
-      }
+    startTransition(() => {
+      initiateEmailSignIn(auth, values.email, values.password);
     });
   };
+
+  if (isUserLoading || user) {
+    return (
+      <div className="flex justify-center items-center p-8">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <>

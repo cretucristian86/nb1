@@ -4,8 +4,9 @@ import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { auth } from '@/lib/firebase/config';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useAuth } from '@/firebase';
+import { initiateEmailSignUp } from '@/firebase/non-blocking-login';
 import { useRouter } from 'next/navigation';
 
 import { RegisterSchema } from '@/lib/schemas';
@@ -42,6 +43,7 @@ const GoogleIcon = () => (
 export function RegisterForm() {
   const { toast } = useToast();
   const router = useRouter();
+  const auth = useAuth();
   const [success, setSuccess] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -73,8 +75,8 @@ export function RegisterForm() {
     setSuccess(null);
     startTransition(async () => {
       try {
-        await createUserWithEmailAndPassword(auth, values.email, values.password);
-        setSuccess('Registration successful! You can now log in.');
+        await initiateEmailSignUp(auth, values.email, values.password);
+        setSuccess('Registration successful! Please check your email to verify your account. You can now log in.');
         form.reset();
       } catch (err: any) {
         let errorMessage = 'An unexpected error occurred.';

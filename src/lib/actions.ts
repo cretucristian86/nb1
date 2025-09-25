@@ -2,9 +2,16 @@
 
 import { z } from 'zod';
 import { EnrollmentSchema } from '@/lib/schemas';
-import { db } from '@/lib/firebase/config';
-import { doc, setDoc } from 'firebase/firestore';
+import { getFirestore } from 'firebase-admin/firestore';
+import {getApp, getApps, initializeApp} from 'firebase-admin/app';
 import { revalidatePath } from 'next/cache';
+
+// Ensure Firebase Admin is initialized
+if (!getApps().length) {
+    initializeApp();
+}
+
+const db = getFirestore();
 
 export async function enrollUserAction(values: z.infer<typeof EnrollmentSchema>, userId: string) {
     if (!userId) {
@@ -17,13 +24,19 @@ export async function enrollUserAction(values: z.infer<typeof EnrollmentSchema>,
     }
 
     try {
-        await setDoc(doc(db, 'enrollments', userId), {
+        const enrollmentId = db.collection('users').doc(userId).collection('enrollments').doc().id;
+        
+        await db.collection('users').doc(userId).collection('enrollments').doc(enrollmentId).set({
             ...validatedFields.data,
+            userId: userId,
+            id: enrollmentId,
             enrolledAt: new Date(),
         });
+        
         revalidatePath('/enroll');
         return { success: 'You have been successfully enrolled!' };
     } catch (error) {
+        console.error("Enrollment error:", error);
         return { error: 'Failed to save enrollment data.' };
     }
 }

@@ -36,7 +36,6 @@
         }
       },
       "required": [
-        "id",
         "userId",
         "name",
         "surname",
@@ -70,48 +69,22 @@
   "auth": {
     "providers": [
       "password",
-      "anonymous"
+      "anonymous",
+      "google.com"
     ]
   },
   "firestore": {
-    "structure": [
-      {
-        "path": "/users/{userId}",
-        "definition": {
-          "entityName": "User",
-          "schema": {
-            "$ref": "#/backend/entities/User"
-          },
-          "description": "Stores user profiles. Only the authenticated user can access their own profile.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user."
-            }
-          ]
-        }
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/backend/entities/User"
       },
-      {
-        "path": "/users/{userId}/enrollments/{enrollmentId}",
-        "definition": {
-          "entityName": "Enrollment",
-          "schema": {
-            "$ref": "#/backend/entities/Enrollment"
-          },
-          "description": "Stores enrollment data for each user. Only the authenticated user can access their enrollment data.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user."
-            },
-            {
-              "name": "enrollmentId",
-              "description": "The unique identifier of the enrollment."
-            }
-          ]
-        }
-      }
-    ],
-    "reasoning": "The Firestore structure is designed to provide a secure and scalable data model for the Campaign Enroller app. It utilizes path-based ownership for user data and enforces authorization independence through schema design.\n\n*   `/users/{userId}`: This collection stores user profiles. User documents are secured using rules that enforce `request.auth.uid == userId`. This structure ensures that only the authenticated user can access their profile.\n*   `/users/{userId}/enrollments/{enrollmentId}`: This subcollection stores enrollment data for each user. The path-based ownership ensures that only the authenticated user can access their enrollment data. The `enrollmentId` provides a unique identifier for each enrollment record. \n\nThis design achieves Authorization Independence (CRITICAL) by using path-based ownership. Security rules can be written to validate that `request.auth.uid == userId` without needing to read any other documents. This is critical for atomic operations and simplifies debugging. The structure also supports the required QAPs (Rules are not Filters) by segregating data into user-specific collections. List operations are secure because the rules only allow listing enrollments for the currently authenticated user."
+      "description": "Stores user profiles. Only the authenticated user can access their own profile."
+    },
+    "/users/{userId}/enrollments/{enrollmentId}": {
+      "schema": {
+        "$ref": "#/backend/entities/Enrollment"
+      },
+      "description": "Stores enrollment data for each user. Only the authenticated user can access their enrollment data."
+    }
   }
 }

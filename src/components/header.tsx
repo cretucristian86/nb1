@@ -2,13 +2,14 @@
 
 import { useRouter } from 'next/navigation';
 import { signOut } from 'firebase/auth';
-import { auth } from '@/lib/firebase/config';
+import { useAuth } from '@/firebase';
 import { Button } from '@/components/ui/button';
 import { LogOut } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export function Header() {
     const router = useRouter();
+    const auth = useAuth();
     const { toast } = useToast();
 
     const handleLogout = async () => {

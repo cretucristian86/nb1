@@ -1,9 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
-import { auth } from '@/lib/firebase/config';
+import { useUser } from '@/firebase';
 
 import { EnrollmentForm } from '@/components/forms/enrollment-form';
 import { Header } from '@/components/header';
@@ -37,23 +36,15 @@ function EnrollmentSkeleton() {
 
 export default function EnrollPage() {
     const router = useRouter();
-    const [user, setUser] = useState<FirebaseUser | null>(null);
-    const [loading, setLoading] = useState(true);
+    const { user, isUserLoading } = useUser();
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
-                setUser(currentUser);
-            } else {
-                router.push('/login');
-            }
-            setLoading(false);
-        });
+        if (!isUserLoading && !user) {
+            router.push('/login');
+        }
+    }, [isUserLoading, user, router]);
 
-        return () => unsubscribe();
-    }, [router]);
-
-    if (loading) {
+    if (isUserLoading) {
         return <EnrollmentSkeleton />;
     }
 
