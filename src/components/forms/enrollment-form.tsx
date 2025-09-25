@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useFirestore } from '@/firebase';
-import { collection, serverTimestamp } from 'firebase/firestore';
+import { doc, serverTimestamp } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 
 import { EnrollmentSchema } from '@/lib/schemas';
@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Loader2, User, Phone, Home, Hash, CheckCircle } from 'lucide-react';
-import { addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 
 export function EnrollmentForm({ userId }: { userId: string }) {
   const router = useRouter();
@@ -41,13 +41,13 @@ export function EnrollmentForm({ userId }: { userId: string }) {
     startTransition(() => {
         if (!firestore) return;
 
-        const enrollmentsRef = collection(firestore, 'nb1-users');
+        const enrollmentDocRef = doc(firestore, 'nb1-users', userId);
         
-        addDocumentNonBlocking(enrollmentsRef, {
+        setDocumentNonBlocking(enrollmentDocRef, {
             ...values,
             userId: userId,
             enrolledAt: serverTimestamp(),
-        }).then(() => {
+        }, { merge: true }).then(() => {
             setSuccess('You have been successfully enrolled! Redirecting...');
             form.reset();
             setTimeout(() => {
