@@ -17,7 +17,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Loader2, User, Phone, Home, Hash } from 'lucide-react';
+import { Loader2, User, Phone, Home, Hash, CheckCircle } from 'lucide-react';
 
 export function EnrollmentForm({ userId }: { userId: string }) {
   const { toast } = useToast();
@@ -148,7 +148,8 @@ export function EnrollmentForm({ userId }: { userId: string }) {
             />
 
             {success && (
-                <Alert>
+                <Alert variant="success">
+                    <CheckCircle className="h-4 w-4" />
                     <AlertTitle>Success!</AlertTitle>
                     <AlertDescription>{success}</AlertDescription>
                 </Alert>
