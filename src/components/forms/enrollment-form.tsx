@@ -4,9 +4,12 @@ import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useFirestore } from '@/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { FirestorePermissionError } from '@/firebase/errors';
+import { errorEmitter } from '@/firebase/error-emitter';
 
 import { EnrollmentSchema } from '@/lib/schemas';
-import { enrollUserAction } from '@/lib/actions';
 import { useToast } from '@/hooks/use-toast';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,6 +21,7 @@ import { Loader2, User, Phone, Home, Hash } from 'lucide-react';
 
 export function EnrollmentForm({ userId }: { userId: string }) {
   const { toast } = useToast();
+  const firestore = useFirestore();
   const [success, setSuccess] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -34,19 +38,26 @@ export function EnrollmentForm({ userId }: { userId: string }) {
 
   const onSubmit = (values: z.infer<typeof EnrollmentSchema>) => {
     setSuccess(null);
-    startTransition(async () => {
-        const result = await enrollUserAction(values, userId);
-        if (result.error) {
-            toast({
-                variant: 'destructive',
-                title: 'Enrollment Failed',
-                description: result.error,
-            });
-        }
-        if (result.success) {
-            setSuccess(result.success);
+    startTransition(() => {
+        if (!firestore) return;
+
+        const enrollmentsRef = collection(firestore, 'users', userId, 'enrollments');
+        
+        addDoc(enrollmentsRef, {
+            ...values,
+            userId: userId,
+            enrolledAt: serverTimestamp(),
+        }).then(() => {
+            setSuccess('You have been successfully enrolled!');
             form.reset();
-        }
+        }).catch(error => {
+            const permissionError = new FirestorePermissionError({
+                path: enrollmentsRef.path,
+                operation: 'create',
+                requestResourceData: values,
+            });
+            errorEmitter.emit('permission-error', permissionError);
+        });
     });
   };
 
