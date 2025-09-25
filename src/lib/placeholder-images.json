@@ -1,3 +1,34 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "step-1",
+      "description": "Illustration for the first step of the process.",
+      "imageUrl": "https://images.unsplash.com/photo-1614558097757-bf9aa8fb830e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxpbGx1c3RyYXRpb24lMjBzdGVwJTIwb25lfGVufDB8fHx8MTc1ODgwNDQ4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "illustration step one"
+    },
+    {
+      "id": "step-2",
+      "description": "Illustration for the second step of the process.",
+      "imageUrl": "https://images.unsplash.com/photo-1712685884939-c0969ab2e758?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxpbGx1c3RyYXRpb24lMjBzdGVwJTIwdHdvfGVufDB8fHx8MTc1ODgwNDQ4M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "illustration step two"
+    },
+    {
+      "id": "step-3",
+      "description": "Illustration for the third step of the process.",
+      "imageUrl": "https://images.unsplash.com/photo-1625043094257-b6c1b573210f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxpbGx1c3RyYXRpb24lMjBzdGVwJTIwdGhyZWV8ZW58MHx8fHwxNzU4ODA0NDgzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "illustration step three"
+    },
+    {
+      "id": "step-4",
+      "description": "Illustration for the fourth step of the process.",
+      "imageUrl": "https://images.unsplash.com/photo-1743267216601-f39b8815ed4d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxpbGx1c3RyYXRpb24lMjBzdGVwJTIwZm91cnxlbnwwfHx8fDE3NTg4MDQ0ODJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "illustration step four"
+    },
+    {
+      "id": "step-5",
+      "description": "Illustration for the fifth step of the process.",
+      "imageUrl": "https://images.unsplash.com/photo-1614558097757-bf9aa8fb830e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxpbGx1c3RyYXRpb24lMjBzdGVwJTIwZml2ZXxlbnwwfHx8fDE3NTg4MDQ0ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "illustration step five"
+    }
+  ]
 }
