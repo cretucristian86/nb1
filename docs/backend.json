@@ -78,13 +78,22 @@
       "schema": {
         "$ref": "#/backend/entities/User"
       },
-      "description": "Stores user profiles. Only the authenticated user can access their own profile."
+      "description": "Stores user profiles. Only the authenticated user can access their own profile.",
+      "rules": {
+        "read": "request.auth.uid == userId",
+        "write": "request.auth.uid == userId"
+      }
     },
     "/nb1-users/{userId}": {
       "schema": {
         "$ref": "#/backend/entities/Enrollment"
       },
-      "description": "Stores enrollment data for all users. Each document contains a userId to link back to the user."
+      "description": "Stores enrollment data for all users. Each document contains a userId to link back to the user.",
+       "rules": {
+        "read": "request.auth != null && request.auth.uid == resource.data.userId",
+        "create": "request.auth != null && request.auth.uid == request.resource.data.userId",
+        "update": "request.auth != null && request.auth.uid == resource.data.userId"
+      }
     }
   }
 }
