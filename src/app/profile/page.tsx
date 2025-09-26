@@ -12,7 +12,7 @@ import { User, Phone, Home, Hash, Edit } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { KitRegistrationForm } from '@/components/forms/kit-registration-form';
 import type { KitRegistration } from '@/lib/schemas';
 
@@ -142,6 +142,12 @@ export default function ProfilePage() {
                                             </Button>
                                         </DialogTrigger>
                                         <DialogContent className="max-w-3xl">
+                                             <DialogHeader>
+                                                <DialogTitle>Edit Kit Registration</DialogTitle>
+                                                <DialogDescription>
+                                                Update your details below.
+                                                </DialogDescription>
+                                            </DialogHeader>
                                              <KitRegistrationForm 
                                                 userId={user.uid} 
                                                 isEditMode={true} 

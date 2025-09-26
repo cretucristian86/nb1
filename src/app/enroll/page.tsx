@@ -9,6 +9,7 @@ import { collection, query, where, limit } from 'firebase/firestore';
 import { KitRegistrationForm } from '@/components/forms/kit-registration-form';
 import { Header } from '@/components/header';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 function EnrollmentSkeleton() {
     return (
@@ -73,7 +74,19 @@ export default function EnrollPage() {
             <div className="flex flex-col min-h-screen">
                 <Header />
                 <main className="flex-grow container mx-auto px-4 py-8">
-                    <KitRegistrationForm userId={user.uid} />
+                     <Card className="w-full max-w-2xl mx-auto my-12 shadow-2xl bg-card border-2">
+                        <CardHeader>
+                            <CardTitle className="text-3xl font-bold text-primary font-headline">
+                                Kit Registration
+                            </CardTitle>
+                            <CardDescription>
+                                Please fill out the form below to complete your kit registration.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <KitRegistrationForm userId={user.uid} />
+                        </CardContent>
+                    </Card>
                 </main>
             </div>
         );

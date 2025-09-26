@@ -11,7 +11,6 @@ import { useRouter } from 'next/navigation';
 
 import { KitRegistrationSchema } from '@/lib/schemas';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -64,7 +63,10 @@ export function KitRegistrationForm({ userId, isEditMode = false, initialData, o
         setDocumentNonBlocking(enrollmentDocRef, dataToSave, { merge: true }).then(() => {
             const successMessage = isEditMode ? 'Your details have been successfully updated!' : 'You have been successfully registered! Redirecting...';
             setSuccess(successMessage);
-            form.reset();
+            
+            if (!isEditMode) {
+                form.reset();
+            }
             
             if (onSuccess) {
                 setTimeout(onSuccess, 1500);
@@ -89,18 +91,8 @@ export function KitRegistrationForm({ userId, isEditMode = false, initialData, o
   );
 
   return (
-    <Card className="w-full max-w-2xl mx-auto my-12 shadow-2xl bg-card border-2">
-      <CardHeader>
-        <CardTitle className="text-3xl font-bold text-primary font-headline">
-            {isEditMode ? 'Edit Kit Registration' : 'Kit Registration'}
-        </CardTitle>
-        <CardDescription>
-            {isEditMode ? 'Update your details below.' : 'Please fill out the form below to complete your kit registration.'}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 pt-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <FormField
                 control={form.control}
@@ -183,7 +175,5 @@ export function KitRegistrationForm({ userId, isEditMode = false, initialData, o
             </Button>
           </form>
         </Form>
-      </CardContent>
-    </Card>
   );
 }
