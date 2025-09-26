@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
@@ -39,25 +40,8 @@ function ProfileSkeleton() {
             </Card>
             {/* The NextSteps component does not have its own loading state, so we can render its skeleton here */}
             <div className="space-y-8">
-                {[...Array(5)].map((_, i) => (
-                     <Card key={i} className="overflow-hidden shadow-lg">
-                         <div className="grid md:grid-cols-2">
-                             <div className={`relative h-64 md:h-auto ${i % 2 === 1 ? 'md:order-last' : ''}`}>
-                                <Skeleton className="h-full w-full" />
-                            </div>
-                            <div className="p-6">
-                                <CardHeader>
-                                    <Skeleton className="h-6 w-2/3 mb-2" />
-                                    <Skeleton className="h-4 w-full" />
-                                     <Skeleton className="h-4 w-3/4" />
-                                </CardHeader>
-                                <CardContent>
-                                     <Skeleton className="h-4 w-1/2" />
-                                </CardContent>
-                            </div>
-                        </div>
-                    </Card>
-                ))}
+                <Card className="overflow-hidden shadow-lg"><div className="grid md:grid-cols-2"><div className="relative h-64 md:h-auto "><Skeleton className="h-full w-full" /></div><div className="p-6"><CardHeader><Skeleton className="h-6 w-2/3 mb-2" /><Skeleton className="h-4 w-full" /><Skeleton className="h-4 w-3/4" /></CardHeader><CardContent><Skeleton className="h-4 w-1/2" /></CardContent></div></div></Card>
+                <Card className="overflow-hidden shadow-lg"><div className="grid md:grid-cols-2"><div className="relative h-64 md:h-auto md:order-last"><Skeleton className="h-full w-full" /></div><div className="p-6"><CardHeader><Skeleton className="h-6 w-2/3 mb-2" /><Skeleton className="h-4 w-full" /><Skeleton className="h-4 w-3/4" /></CardHeader><CardContent><Skeleton className="h-4 w-1/2" /></CardContent></div></div></Card>
             </div>
         </div>
     )
@@ -86,8 +70,8 @@ export default function ProfilePage() {
 
     const { data: enrollments, isLoading: isEnrollmentsLoading } = useCollection(enrollmentsQuery);
 
-    if (isUserLoading) {
-        return (
+    if (isUserLoading || !user) {
+         return (
              <div className="flex flex-col min-h-screen">
                 <Header />
                 <main className="flex-grow container mx-auto px-4 py-8">
@@ -96,10 +80,6 @@ export default function ProfilePage() {
                 </main>
             </div>
         )
-    }
-    
-    if (!user) {
-        return null;
     }
 
     const latestEnrollment = enrollments?.[0];
@@ -114,16 +94,14 @@ export default function ProfilePage() {
                     <ProfileSkeleton />
                 ) : (
                     <>
-                        {!latestEnrollment && (
+                        {!latestEnrollment ? (
                             <Alert>
                                 <AlertTitle>No Enrollment Found</AlertTitle>
                                 <AlertDescription>
                                     You have not enrolled in the campaign yet. Please go to the enrollment page to get started.
                                 </AlertDescription>
                             </Alert>
-                        )}
-
-                        {latestEnrollment && (
+                        ) : (
                             <Card className="shadow-lg">
                                 <CardHeader>
                                     <CardTitle className="font-headline">Enrollment Details</CardTitle>
