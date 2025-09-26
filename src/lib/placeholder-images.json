@@ -9,25 +9,25 @@
     {
       "id": "step-2",
       "description": "After your bowel movement, use the scoop attached to the collection tube's cap to gather a small amount of stool. The goal is to fill the tube only to the indicated red line with the preservation liquid. Do not overfill the tube.",
-      "imageUrl": "/stool_kit_opened.jpeg",
+      "imageUrl": "stool_kit_opened.jpeg",
       "imageHint": "sample collection"
     },
     {
       "id": "step-3",
       "description": "Screw the cap on tightly to ensure it's fully sealed. Shake the tube as hard as you can for at least 30 seconds. This is crucial as it mixes your sample with the preservation fluid, which keeps it stable for analysis in the lab.",
-      "imageUrl": "/stool_closing.jpeg",
+      "imageUrl": "stool_closing.jpeg",
       "imageHint": "mixing sample"
     },
     {
       "id": "step-4",
       "description": "Place the securely sealed collection tube into the provided biohazard bag. Then, place the sealed bag back inside the original kit box, which serves as your prepaid, pre-addressed return mailer.",
-      "imageUrl": "/empty_package.jpg",
+      "imageUrl": "empty_package.jpg",
       "imageHint": "packing box"
     },
     {
       "id": "step-5",
-      "description": "Drop the sealed kit box into any USPS mailbox or drop-off location as soon as possible, ideally within 24 hours of collection. Your results will be processed once we receive your sample. You're all set!",
-      "imageUrl": "/courier.jpeg",
+      "description": "To arrange for pickup, please contact us at the following phone number: xxxxxxxx. A courier will be sent to your address to collect the package. Your results will be processed once we receive your sample. You're all set!",
+      "imageUrl": "courier.jpeg",
       "imageHint": "courier delivery"
     }
   ]
