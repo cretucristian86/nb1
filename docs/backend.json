@@ -84,13 +84,13 @@
         "write": "request.auth.uid == userId"
       }
     },
-    "/nb1-users/{userId}": {
+    "/nb1-users/{document=**}": {
       "schema": {
         "$ref": "#/backend/entities/Enrollment"
       },
       "description": "Stores enrollment data for all users. Each document contains a userId to link back to the user.",
        "rules": {
-        "get": "request.auth.uid == userId",
+        "get": "request.auth.uid == resource.data.userId",
         "list": "request.auth != null && request.query.where.userId == request.auth.uid",
         "create": "request.auth != null && request.auth.uid == request.resource.data.userId",
         "update": "request.auth != null && request.auth.uid == resource.data.userId"
