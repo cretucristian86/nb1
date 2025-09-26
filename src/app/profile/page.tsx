@@ -5,12 +5,17 @@ import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebas
 import { collection, query, where, limit } from 'firebase/firestore';
 import { Header } from '@/components/header';
 import { NextSteps } from '@/components/next-steps';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { User, Phone, Home, Hash } from 'lucide-react';
+import { User, Phone, Home, Hash, Edit } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { KitRegistrationForm } from '@/components/forms/kit-registration-form';
+import type { KitRegistration } from '@/lib/schemas';
+
 
 function ProfileSkeleton() {
     return (
@@ -37,6 +42,9 @@ function ProfileSkeleton() {
                         <Skeleton className="h-6 w-1/2" />
                     </div>
                 </CardContent>
+                 <CardFooter>
+                    <Skeleton className="h-10 w-24 ml-auto" />
+                </CardFooter>
             </Card>
             {/* The NextSteps component does not have its own loading state, so we can render its skeleton here */}
             <div className="space-y-8">
@@ -52,6 +60,7 @@ export default function ProfilePage() {
     const { user, isUserLoading } = useUser();
     const firestore = useFirestore();
     const router = useRouter();
+    const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
     useEffect(() => {
         if (!isUserLoading && !user) {
@@ -82,7 +91,7 @@ export default function ProfilePage() {
         )
     }
 
-    const latestEnrollment = enrollments?.[0];
+    const latestEnrollment = enrollments?.[0] as KitRegistration | undefined;
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -95,10 +104,10 @@ export default function ProfilePage() {
                 ) : (
                     <>
                         {!latestEnrollment ? (
-                            <Alert>
+                             <Alert>
                                 <AlertTitle>No Kit Registration Found</AlertTitle>
                                 <AlertDescription>
-                                    You have not registered a kit yet. Please go to the registration page to get started.
+                                    You have not registered a kit yet. Please go to the <a href="/enroll" className="underline font-semibold">registration page</a> to get started.
                                 </AlertDescription>
                             </Alert>
                         ) : (
@@ -124,6 +133,24 @@ export default function ProfilePage() {
                                         <span>{latestEnrollment.kitSerialNumber}</span>
                                     </div>
                                 </CardContent>
+                                <CardFooter className="justify-end">
+                                    <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+                                        <DialogTrigger asChild>
+                                            <Button>
+                                                <Edit className="mr-2 h-4 w-4" />
+                                                Edit Details
+                                            </Button>
+                                        </DialogTrigger>
+                                        <DialogContent className="max-w-3xl">
+                                             <KitRegistrationForm 
+                                                userId={user.uid} 
+                                                isEditMode={true} 
+                                                initialData={latestEnrollment}
+                                                onSuccess={() => setIsEditDialogOpen(false)}
+                                            />
+                                        </DialogContent>
+                                    </Dialog>
+                                </CardFooter>
                             </Card>
                         )}
                         

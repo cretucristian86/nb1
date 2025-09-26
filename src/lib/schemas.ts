@@ -26,3 +26,5 @@ export const KitRegistrationSchema = z.object({
     address: z.string().min(1, { message: 'Address is required.' }),
     kitSerialNumber: z.string().min(1, { message: 'Kit serial number is required.' }),
 });
+
+export type KitRegistration = z.infer<typeof KitRegistrationSchema>;

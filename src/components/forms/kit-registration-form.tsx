@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -18,8 +18,16 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Loader2, User, Phone, Home, Hash, CheckCircle } from 'lucide-react';
 import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import type { KitRegistration } from '@/lib/schemas';
 
-export function KitRegistrationForm({ userId }: { userId: string }) {
+type KitRegistrationFormProps = {
+    userId: string;
+    isEditMode?: boolean;
+    initialData?: KitRegistration;
+    onSuccess?: () => void;
+};
+
+export function KitRegistrationForm({ userId, isEditMode = false, initialData, onSuccess }: KitRegistrationFormProps) {
   const router = useRouter();
   const firestore = useFirestore();
   const [success, setSuccess] = useState<string | null>(null);
@@ -27,7 +35,7 @@ export function KitRegistrationForm({ userId }: { userId: string }) {
 
   const form = useForm<z.infer<typeof KitRegistrationSchema>>({
     resolver: zodResolver(KitRegistrationSchema),
-    defaultValues: {
+    defaultValues: initialData || {
       name: '',
       surname: '',
       phone: '',
@@ -35,6 +43,12 @@ export function KitRegistrationForm({ userId }: { userId: string }) {
       kitSerialNumber: '',
     },
   });
+  
+  useEffect(() => {
+    if (initialData) {
+      form.reset(initialData);
+    }
+  }, [initialData, form]);
 
   const onSubmit = (values: z.infer<typeof KitRegistrationSchema>) => {
     setSuccess(null);
@@ -43,16 +57,24 @@ export function KitRegistrationForm({ userId }: { userId: string }) {
 
         const enrollmentDocRef = doc(firestore, 'nb1-users', userId);
         
-        setDocumentNonBlocking(enrollmentDocRef, {
-            ...values,
-            userId: userId,
-            enrolledAt: serverTimestamp(),
-        }).then(() => {
-            setSuccess('You have been successfully registered! Redirecting...');
+        const dataToSave = isEditMode 
+            ? { ...values, updatedAt: serverTimestamp() }
+            : { ...values, userId: userId, enrolledAt: serverTimestamp() };
+
+        setDocumentNonBlocking(enrollmentDocRef, dataToSave, { merge: true }).then(() => {
+            const successMessage = isEditMode ? 'Your details have been successfully updated!' : 'You have been successfully registered! Redirecting...';
+            setSuccess(successMessage);
             form.reset();
-            setTimeout(() => {
-                router.push('/next-steps');
-            }, 2000);
+            
+            if (onSuccess) {
+                setTimeout(onSuccess, 1500);
+            }
+
+            if (!isEditMode) {
+                setTimeout(() => {
+                    router.push('/next-steps');
+                }, 2000);
+            }
         });
     });
   };
@@ -69,8 +91,12 @@ export function KitRegistrationForm({ userId }: { userId: string }) {
   return (
     <Card className="w-full max-w-2xl mx-auto my-12 shadow-2xl bg-card border-2">
       <CardHeader>
-        <CardTitle className="text-3xl font-bold text-primary font-headline">Kit Registration</CardTitle>
-        <CardDescription>Please fill out the form below to complete your kit registration.</CardDescription>
+        <CardTitle className="text-3xl font-bold text-primary font-headline">
+            {isEditMode ? 'Edit Kit Registration' : 'Kit Registration'}
+        </CardTitle>
+        <CardDescription>
+            {isEditMode ? 'Update your details below.' : 'Please fill out the form below to complete your kit registration.'}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -153,7 +179,7 @@ export function KitRegistrationForm({ userId }: { userId: string }) {
 
             <Button type="submit" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground" disabled={isPending}>
               {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Save Registration
+              {isEditMode ? 'Update Registration' : 'Save Registration'}
             </Button>
           </form>
         </Form>
