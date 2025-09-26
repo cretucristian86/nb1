@@ -88,8 +88,8 @@ export default {
           },
         },
         'unveil': {
-            '0%': { opacity: '0', transform: 'scale(0.9)' },
-            '100%': { opacity: '1', transform: 'scale(1)' },
+            '0%': { opacity: '0', transform: 'translateY(20px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         'unveil-background': {
             'from': { opacity: '1' },
@@ -99,8 +99,7 @@ export default {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'unveil': 'unveil 1s ease-out 0.5s forwards',
-        'unveil-bg': 'unveil-background 1s ease-out forwards',
+        'unveil': 'unveil 0.8s ease-out 0.5s forwards',
       },
     },
   },

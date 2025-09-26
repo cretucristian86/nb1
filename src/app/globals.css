@@ -85,16 +85,16 @@
   }
 }
 
-@layer utilities {
-  .animate-unveil-bg::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-color: black;
-    z-index: 50;
-    animation: unveil-background 1s ease-out forwards;
-  }
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-color: black;
+  z-index: 9999;
+  animation: unveil-background 1s ease-out forwards;
+  pointer-events: none;
 }
+
 
 @keyframes unveil-background {
   from {
@@ -102,6 +102,5 @@
   }
   to {
     opacity: 0;
-    visibility: hidden;
   }
 }
