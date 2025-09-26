@@ -9,13 +9,13 @@
     {
       "id": "step-2",
       "description": "A close-up of a collection tube being filled with a sample using the integrated scoop.",
-      "imageUrl": "https://images.unsplash.com/photo-1758206523750-a3e2c61d3633?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxzYW1wbGUlMjBjb2xsZWN0aW9ufGVufDB8fHx8MTc1ODg5MTUzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1599556147783-7edf67c327e0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxzYW1wbGUlMjBjb2xsZWN0aW9ufGVufDB8fHx8MTc1ODg5MTUzOXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "sample collection"
     },
     {
       "id": "step-3",
       "description": "A person shaking the sealed collection tube vigorously to mix the stool sample with the preservation fluid.",
-      "imageUrl": "https://images.unsplash.com/photo-1620456029959-f27e9935cbb9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtaXhpbmclMjBzYW1wbGV8ZW58MHx8fHwxNzU4ODkxNTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1506238359040-22480587eb7a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxtaXhpbmclMjBzYW1wbGV8ZW58MHx8fHwxNzU4ODkxNTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "mixing sample"
     },
     {
