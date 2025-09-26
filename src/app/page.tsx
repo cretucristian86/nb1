@@ -1,9 +1,18 @@
+
 import Link from 'next/link';
 import AnimatedLogo from '@/components/animated-logo';
 
 export default function Home() {
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center bg-background p-8">
+    <main 
+      className="relative flex min-h-screen flex-col items-center justify-center bg-background p-8"
+      style={{
+        backgroundImage: `url('/backgroundPNG.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
       <Link href="/login" aria-label="Go to login page" className="mb-8">
         <AnimatedLogo />
       </Link>
