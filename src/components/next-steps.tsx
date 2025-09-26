@@ -6,28 +6,28 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 const steps = [
     {
         id: "step-1",
-        title: "Step 1: Unbox Your Kit",
-        description: "Carefully open your newly arrived kit. Inside, you'll find everything you need to get started on your journey.",
+        title: "Step 1: Prepare for Collection",
+        description: "Inside your kit, you'll find a collection tube and a collection paper. Unfold the collection paper and place it over the back of your toilet bowl, under the seat.",
     },
     {
         id: "step-2",
-        title: "Step 2: Follow Instructions",
-        description: "Read the included instruction manual thoroughly. It contains important information about setup and usage.",
+        title: "Step 2: Collect Your Sample",
+        description: "After your bowel movement, use the scoop on the cap of the collection tube to scrape a small amount of stool. The goal is to fill the tube to the indicated red line. Do not overfill.",
     },
     {
         id: "step-3",
-        title: "Step 3: Activate Your Device",
-        description: "Follow the on-screen prompts or the manual to activate your device. This will connect it to our network.",
+        title: "Step 3: Secure and Mix",
+        description: "Screw the cap on tightly and shake the tube vigorously for at least 30 seconds. This mixes the sample with the preservation liquid inside, which is crucial for analysis.",
     },
     {
         id: "step-4",
-        title: "Step 4: Perform Initial Test",
-        description: "Once activated, perform the initial test as described. This ensures your device is working correctly.",
+        title: "Step 4: Pack for Shipping",
+        description: "Place the sealed collection tube into the biohazard bag provided, and then place the bag inside the original kit box. The box is pre-labeled for return shipping.",
     },
     {
         id: "step-5",
-        title: "Step 5: You're All Set!",
-        description: "Congratulations! You have successfully completed the setup process. Welcome to the campaign!",
+        title: "Step 5: Mail Your Kit",
+        description: "Drop the sealed kit box into any USPS mailbox or drop-off location. Your results will be processed once we receive your sample. You're all set!",
     },
 ];
 
@@ -45,21 +45,17 @@ export function NextSteps() {
                                         src={placeholder.imageUrl}
                                         alt={placeholder.description}
                                         fill
+                                        sizes="(max-width: 768px) 100vw, 50vw"
                                         style={{ objectFit: 'cover' }}
                                         data-ai-hint={placeholder.imageHint}
                                     />
                                 )}
                             </div>
-                            <div className="p-6">
+                            <div className="p-6 flex flex-col justify-center">
                                 <CardHeader>
                                     <CardTitle className="font-headline">{step.title}</CardTitle>
                                     <CardDescription>{step.description}</CardDescription>
                                 </CardHeader>
-                                <CardContent>
-                                    <p className="text-sm text-muted-foreground">
-                                        Here you can add more detailed information, links, or instructions for this particular step.
-                                    </p>
-                                </CardContent>
                             </div>
                         </div>
                     </Card>
