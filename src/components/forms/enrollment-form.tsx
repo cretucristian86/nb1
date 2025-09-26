@@ -47,7 +47,7 @@ export function EnrollmentForm({ userId }: { userId: string }) {
             ...values,
             userId: userId,
             enrolledAt: serverTimestamp(),
-        }, { merge: true }).then(() => {
+        }).then(() => {
             setSuccess('You have been successfully enrolled! Redirecting...');
             form.reset();
             setTimeout(() => {
