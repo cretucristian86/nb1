@@ -9,25 +9,25 @@
     {
       "id": "step-2",
       "description": "A close-up of a collection tube being filled with a sample using the integrated scoop.",
-      "imageUrl": "https://images.unsplash.com/photo-1636690300981-72b5301d7608?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzYW1wbGUlMjBjb2xsZWN0aW9ufGVufDB8fHx8MTc1ODg5MTUzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1599814516385-5eb0a11888d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzYW1wbGUlMjBjb2xsZWN0aW9ufGVufDB8fHx8MTc1ODg5MTUzOXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "sample collection"
     },
     {
       "id": "step-3",
       "description": "A person shaking the sealed collection tube vigorously to mix the stool sample with the preservation fluid.",
-      "imageUrl": "https://images.unsplash.com/photo-1642083277337-ea91edb8e98c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtaXhpbmclMjBzYW1wbGV8ZW58MHx8fHwxNzU4ODkxNTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1661018631645-8e5dbd6d8640?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtaXhpbmclMjBzYW1wbGV8ZW58MHx8fHwxNzU4ODkxNTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "mixing sample"
     },
     {
       "id": "step-4",
       "description": "The sealed collection tube being placed into the provided biohazard bag, inside the original kit box, which serves as the prepaid return mailer.",
-      "imageUrl": "https://images.unsplash.com/photo-1577702312572-5bb9328a9f15?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwYWNraW5nJTIwYm94fGVufDB8fHx8MTc1ODg5MzEzMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1612011214249-0b8f42af5ceb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwYWNraW5nJTIwYm94fGVufDB8fHx8MTc1ODg5MzEzMHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "packing box"
     },
     {
       "id": "step-5",
       "description": "Handing the packaged kit to a courier for mailing.",
-      "imageUrl": "https://images.unsplash.com/photo-1599351334447-3047a89bab4a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjAzNTV8MHwxfHNlYXJjaHwzfHxjb3VyaWVyJTIwZGVsaXZlcnklMjB2YW58ZW58MHx8fHwxNzE3NTk5NjM0fDA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageUrl": "/courier.jpeg",
       "imageHint": "courier delivery"
     }
   ]
