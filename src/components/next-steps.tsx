@@ -21,8 +21,8 @@ const steps = [
     },
     {
         id: "step-4",
-        title: "Step 4: Pack for Shipping",
-        description: "Place the securely sealed collection tube into the provided biohazard bag and seal it. Then, place the sealed bag inside the original kit box, which serves as the prepaid, pre-addressed return mailer.",
+        title: "Step 4: Pack for Shipping in the Original Box",
+        description: "Place the securely sealed collection tube into the provided biohazard bag. Then, place the sealed bag back inside the original kit box, which serves as your prepaid, pre-addressed return mailer.",
     },
     {
         id: "step-5",
