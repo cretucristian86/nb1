@@ -1,38 +1,38 @@
 {
   "entities": {
-    "Enrollment": {
+    "KitRegistration": {
       "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Enrollment",
+      "title": "KitRegistration",
       "type": "object",
-      "description": "Represents a user's enrollment in the campaign.",
+      "description": "Represents a user's kit registration in the campaign.",
       "properties": {
         "id": {
           "type": "string",
-          "description": "Unique identifier for the Enrollment entity."
+          "description": "Unique identifier for the KitRegistration entity."
         },
         "userId": {
           "type": "string",
-          "description": "Reference to the User. (Relationship: User 1:N Enrollment)"
+          "description": "Reference to the User. (Relationship: User 1:N KitRegistration)"
         },
         "name": {
           "type": "string",
-          "description": "The enrollee's first name."
+          "description": "The registrant's first name."
         },
         "surname": {
           "type": "string",
-          "description": "The enrollee's last name."
+          "description": "The registrant's last name."
         },
         "phone": {
           "type": "string",
-          "description": "The enrollee's phone number."
+          "description": "The registrant's phone number."
         },
         "address": {
           "type": "string",
-          "description": "The enrollee's address."
+          "description": "The registrant's address."
         },
         "kitSerialNumber": {
           "type": "string",
-          "description": "The serial number of the kit associated with the enrollment."
+          "description": "The serial number of the kit associated with the registration."
         }
       },
       "required": [
@@ -86,9 +86,9 @@
     },
     "/nb1-users/{document=**}": {
       "schema": {
-        "$ref": "#/backend/entities/Enrollment"
+        "$ref": "#/backend/entities/KitRegistration"
       },
-      "description": "Stores enrollment data for all users. Each document contains a userId to link back to the user.",
+      "description": "Stores kit registration data for all users. Each document contains a userId to link back to the user.",
        "rules": {
         "get": "request.auth.uid == resource.data.userId",
         "list": "request.auth != null && request.query.where.userId == request.auth.uid",

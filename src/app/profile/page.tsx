@@ -96,15 +96,15 @@ export default function ProfilePage() {
                     <>
                         {!latestEnrollment ? (
                             <Alert>
-                                <AlertTitle>No Enrollment Found</AlertTitle>
+                                <AlertTitle>No Kit Registration Found</AlertTitle>
                                 <AlertDescription>
-                                    You have not enrolled in the campaign yet. Please go to the enrollment page to get started.
+                                    You have not registered a kit yet. Please go to the registration page to get started.
                                 </AlertDescription>
                             </Alert>
                         ) : (
                             <Card className="shadow-lg">
                                 <CardHeader>
-                                    <CardTitle className="font-headline">Enrollment Details</CardTitle>
+                                    <CardTitle className="font-headline">Kit Registration Details</CardTitle>
                                 </CardHeader>
                                 <CardContent className="space-y-4 text-sm">
                                     <div className="flex items-center gap-4">

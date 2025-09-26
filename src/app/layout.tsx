@@ -1,11 +1,12 @@
+
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase';
 
 export const metadata: Metadata = {
-  title: 'Campaign Enroller',
-  description: 'Enroll in our campaign.',
+  title: 'Kit Registration',
+  description: 'Register your kit for our campaign.',
 };
 
 export default function RootLayout({

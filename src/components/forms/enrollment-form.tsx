@@ -9,7 +9,7 @@ import { useFirestore } from '@/firebase';
 import { doc, serverTimestamp } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 
-import { EnrollmentSchema } from '@/lib/schemas';
+import { KitRegistrationSchema } from '@/lib/schemas';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -19,14 +19,14 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Loader2, User, Phone, Home, Hash, CheckCircle } from 'lucide-react';
 import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 
-export function EnrollmentForm({ userId }: { userId: string }) {
+export function KitRegistrationForm({ userId }: { userId: string }) {
   const router = useRouter();
   const firestore = useFirestore();
   const [success, setSuccess] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<z.infer<typeof EnrollmentSchema>>({
-    resolver: zodResolver(EnrollmentSchema),
+  const form = useForm<z.infer<typeof KitRegistrationSchema>>({
+    resolver: zodResolver(KitRegistrationSchema),
     defaultValues: {
       name: '',
       surname: '',
@@ -36,7 +36,7 @@ export function EnrollmentForm({ userId }: { userId: string }) {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof EnrollmentSchema>) => {
+  const onSubmit = (values: z.infer<typeof KitRegistrationSchema>) => {
     setSuccess(null);
     startTransition(() => {
         if (!firestore) return;
@@ -48,7 +48,7 @@ export function EnrollmentForm({ userId }: { userId: string }) {
             userId: userId,
             enrolledAt: serverTimestamp(),
         }).then(() => {
-            setSuccess('You have been successfully enrolled! Redirecting...');
+            setSuccess('You have been successfully registered! Redirecting...');
             form.reset();
             setTimeout(() => {
                 router.push('/next-steps');
@@ -69,8 +69,8 @@ export function EnrollmentForm({ userId }: { userId: string }) {
   return (
     <Card className="w-full max-w-2xl mx-auto my-12 shadow-2xl bg-card border-2">
       <CardHeader>
-        <CardTitle className="text-3xl font-bold text-primary font-headline">Enroll in Campaign</CardTitle>
-        <CardDescription>Please fill out the form below to complete your enrollment.</CardDescription>
+        <CardTitle className="text-3xl font-bold text-primary font-headline">Kit Registration</CardTitle>
+        <CardDescription>Please fill out the form below to complete your kit registration.</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -153,7 +153,7 @@ export function EnrollmentForm({ userId }: { userId: string }) {
 
             <Button type="submit" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground" disabled={isPending}>
               {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Save Enrollment
+              Save Registration
             </Button>
           </form>
         </Form>

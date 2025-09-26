@@ -1,3 +1,4 @@
+
 import { z } from 'zod';
 
 export const LoginSchema = z.object({
@@ -18,7 +19,7 @@ export const RegisterSchema = z.object({
     }),
 });
 
-export const EnrollmentSchema = z.object({
+export const KitRegistrationSchema = z.object({
     name: z.string().min(1, { message: 'Name is required.' }),
     surname: z.string().min(1, { message: 'Surname is required.' }),
     phone: z.string().min(1, { message: 'Phone number is required.' }),

@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { collection, query, where, limit } from 'firebase/firestore';
 
-import { EnrollmentForm } from '@/components/forms/enrollment-form';
+import { KitRegistrationForm } from '@/components/forms/kit-registration-form';
 import { Header } from '@/components/header';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -73,7 +73,7 @@ export default function EnrollPage() {
             <div className="flex flex-col min-h-screen">
                 <Header />
                 <main className="flex-grow container mx-auto px-4 py-8">
-                    <EnrollmentForm userId={user.uid} />
+                    <KitRegistrationForm userId={user.uid} />
                 </main>
             </div>
         );
