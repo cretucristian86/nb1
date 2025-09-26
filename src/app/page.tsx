@@ -8,7 +8,7 @@ export default function Home() {
         <h1 className="text-4xl font-headline font-bold text-primary tracking-tight lg:text-5xl">
           Your <span style={{color: 'hsl(var(--ring))'}}>microbiome</span>.
         </h1>
-        <p className="mt-4 text-lg text-foreground/80">
+        <p className="text-4xl font-headline font-bold text-primary tracking-tight lg:text-5xl mt-2">
           Your daily plan.
         </p>
       </div>
