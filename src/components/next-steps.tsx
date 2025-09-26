@@ -26,7 +26,7 @@ const steps = [
     },
     {
         id: "step-5",
-        title: "Step 5: Mail Your Kit Within 24 Hours",
+        title: "Step 5: Ship your kit within 24h",
         description: "Drop the sealed kit box into any USPS mailbox or drop-off location as soon as possible, ideally within 24 hours of collection. Your results will be processed once we receive your sample. You're all set!",
     },
 ];
