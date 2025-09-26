@@ -91,11 +91,16 @@ export default {
             '0%': { opacity: '0', transform: 'scale(0.9)' },
             '100%': { opacity: '1', transform: 'scale(1)' },
         },
+        'unveil-background': {
+            'from': { opacity: '1' },
+            'to': { opacity: '0', visibility: 'hidden' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'unveil': 'unveil 1s ease-out forwards',
+        'unveil': 'unveil 1s ease-out 0.5s forwards',
+        'unveil-bg': 'unveil-background 1s ease-out forwards',
       },
     },
   },

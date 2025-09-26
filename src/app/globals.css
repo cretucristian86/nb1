@@ -84,3 +84,24 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .animate-unveil-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: black;
+    z-index: 50;
+    animation: unveil-background 1s ease-out forwards;
+  }
+}
+
+@keyframes unveil-background {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
