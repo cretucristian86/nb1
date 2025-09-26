@@ -2,31 +2,31 @@
   "placeholderImages": [
     {
       "id": "step-1",
-      "description": "The contents of the stool sample collection kit, including the collection tube and instructions.",
+      "description": "Inside your kit, you'll find a collection tube with a built-in scoop, a collection paper, and a prepaid return mailer. Unfold the collection paper and place it over the back of your toilet bowl, under the seat. This will catch your sample.",
       "imageUrl": "/nb1_stool_kit.png",
       "imageHint": "kit contents"
     },
     {
       "id": "step-2",
-      "description": "A close-up of a collection tube being filled with a sample using the integrated scoop.",
-      "imageUrl": "https://images.unsplash.com/photo-1599814516385-5eb0a11888d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzYW1wbGUlMjBjb2xsZWN0aW9ufGVufDB8fHx8MTc1ODg5MTUzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "description": "After your bowel movement, use the scoop attached to the collection tube's cap to gather a small amount of stool. The goal is to fill the tube only to the indicated red line with the preservation liquid. Do not overfill the tube.",
+      "imageUrl": "https://images.unsplash.com/photo-1758206523750-a3e2c61d3633?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxzYW1wbGUlMjBjb2xsZWN0aW9ufGVufDB8fHx8MTc1ODg5MTUzOXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "sample collection"
     },
     {
       "id": "step-3",
-      "description": "A person shaking the sealed collection tube vigorously to mix the stool sample with the preservation fluid.",
-      "imageUrl": "https://images.unsplash.com/photo-1661018631645-8e5dbd6d8640?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtaXhpbmclMjBzYW1wbGV8ZW58MHx8fHwxNzU4ODkxNTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "description": "Screw the cap on tightly to ensure it's fully sealed. Shake the tube as hard as you can for at least 30 seconds. This is crucial as it mixes your sample with the preservation fluid, which keeps it stable for analysis in the lab.",
+      "imageUrl": "/stool_closing.jpeg",
       "imageHint": "mixing sample"
     },
     {
       "id": "step-4",
-      "description": "The sealed collection tube being placed into the provided biohazard bag, inside the original kit box, which serves as the prepaid return mailer.",
-      "imageUrl": "https://images.unsplash.com/photo-1612011214249-0b8f42af5ceb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwYWNraW5nJTIwYm94fGVufDB8fHx8MTc1ODg5MzEzMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "description": "Place the securely sealed collection tube into the provided biohazard bag. Then, place the sealed bag back inside the original kit box, which serves as your prepaid, pre-addressed return mailer.",
+      "imageUrl": "https://images.unsplash.com/photo-1698376620953-3a9afd8ca46a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwYWNraW5nJTIwYm94fGVufDB8fHx8MTc1ODg5MzEzMHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "packing box"
     },
     {
       "id": "step-5",
-      "description": "Handing the packaged kit to a courier for mailing.",
+      "description": "Drop the sealed kit box into any USPS mailbox or drop-off location as soon as possible, ideally within 24 hours of collection. Your results will be processed once we receive your sample. You're all set!",
       "imageUrl": "/courier.jpeg",
       "imageHint": "courier delivery"
     }
