@@ -6,28 +6,28 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 const steps = [
     {
         id: "step-1",
-        title: "Step 1: Prepare for Collection",
-        description: "Inside your kit, you'll find a collection tube and a collection paper. Unfold the collection paper and place it over the back of your toilet bowl, under the seat.",
+        title: "Step 1: Unbox and Prepare Your Kit",
+        description: "Inside your kit, you'll find a collection tube with a built-in scoop, a collection paper, and a prepaid return mailer. Unfold the collection paper and place it over the back of your toilet bowl, under the seat. This will catch your sample.",
     },
     {
         id: "step-2",
         title: "Step 2: Collect Your Sample",
-        description: "After your bowel movement, use the scoop on the cap of the collection tube to scrape a small amount of stool. The goal is to fill the tube to the indicated red line. Do not overfill.",
+        description: "After your bowel movement, use the scoop attached to the collection tube's cap to gather a small amount of stool. The goal is to fill the tube only to the indicated red line with the preservation liquid. Do not overfill the tube.",
     },
     {
         id: "step-3",
-        title: "Step 3: Secure and Mix",
-        description: "Screw the cap on tightly and shake the tube vigorously for at least 30 seconds. This mixes the sample with the preservation liquid inside, which is crucial for analysis.",
+        title: "Step 3: Secure and Vigorously Mix",
+        description: "Screw the cap on tightly to ensure it's fully sealed. Shake the tube as hard as you can for at least 30 seconds. This is crucial as it mixes your sample with the preservation fluid, which keeps it stable for analysis in the lab.",
     },
     {
         id: "step-4",
         title: "Step 4: Pack for Shipping",
-        description: "Place the sealed collection tube into the biohazard bag provided, and then place the bag inside the original kit box. The box is pre-labeled for return shipping.",
+        description: "Place the securely sealed collection tube into the provided biohazard bag and seal it. Then, place the sealed bag inside the original kit box, which serves as the prepaid, pre-addressed return mailer.",
     },
     {
         id: "step-5",
-        title: "Step 5: Mail Your Kit",
-        description: "Drop the sealed kit box into any USPS mailbox or drop-off location. Your results will be processed once we receive your sample. You're all set!",
+        title: "Step 5: Mail Your Kit Within 24 Hours",
+        description: "Drop the sealed kit box into any USPS mailbox or drop-off location as soon as possible, ideally within 24 hours of collection. Your results will be processed once we receive your sample. You're all set!",
     },
 ];
 
@@ -54,6 +54,7 @@ export function NextSteps() {
                             <div className="p-6 flex flex-col justify-center">
                                 <CardHeader>
                                     <CardTitle className="font-headline">{step.title}</CardTitle>
+
                                     <CardDescription>{step.description}</CardDescription>
                                 </CardHeader>
                             </div>
@@ -64,3 +65,4 @@ export function NextSteps() {
         </div>
     );
 }
+
