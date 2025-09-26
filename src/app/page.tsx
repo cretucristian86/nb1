@@ -4,7 +4,7 @@ import AnimatedLogo from '@/components/animated-logo';
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-background p-8">
-      <Link href="/login" aria-label="Go to login page" className="mb-12">
+      <Link href="/login" aria-label="Go to login page" className="mb-8">
         <AnimatedLogo />
       </Link>
       <div className="text-center">
