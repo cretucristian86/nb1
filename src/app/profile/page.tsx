@@ -111,7 +111,7 @@ export default function ProfilePage() {
                                 </AlertDescription>
                             </Alert>
                         ) : (
-                            <Card className="shadow-lg">
+                            <Card className="shadow-lg bg-card">
                                 <CardHeader>
                                     <CardTitle className="font-headline">Kit Registration Details</CardTitle>
                                 </CardHeader>
