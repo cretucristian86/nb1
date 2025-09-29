@@ -7,7 +7,7 @@
     --background: 209 67% 95%; /* #EBF3FA */
     --foreground: 215 28% 17%;
 
-    --card: 209 67% 98%;
+    --card: 195 60% 94.5%; /* #E8F5F8 */
     --card-foreground: 215 28% 17%;
 
     --popover: 209 67% 98%;
@@ -44,7 +44,7 @@
     --background: 215 28% 12%;
     --foreground: 210 40% 98%;
 
-    --card: 215 28% 17%;
+    --card: 195 28% 17%;
     --card-foreground: 210 40% 98%;
 
     --popover: 215 28% 17%;
